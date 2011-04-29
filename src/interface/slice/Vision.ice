@@ -17,20 +17,23 @@ module vision
 
      enum ImageType
      {
-        default,
+        Default,
      };
 
-     interface VisionReceiverSharedMemory
+     interface ImageReceiverSharedMemory
      {
-         void receiveImage(SharedMemorySegment image);
+         void receiveImageSharedMemory(SharedMemorySegment image);
      };
 
-     interface VisionReceiverEmbedded
+     interface ImageReceiverEmbedded
      {
-         void receiveImage(Blob image);
+         void receiveImageEmbedded(Blob image);
      };
 
-     interface CaptureModule
+     interface ImageReceiver extends ImageReceiverSharedMemory, ImageReceiverEmbedded {
+     };
+
+     interface ImageProvider
      {
          void enableBroadcast(StorageType store, ImageType image);
          void disableBroadcast(StorageType store, ImageType image);
