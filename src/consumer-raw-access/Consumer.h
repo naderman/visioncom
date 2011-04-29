@@ -10,13 +10,13 @@ namespace vision
 {
     class VisionCom_EXPORT Consumer :
         virtual public Ice::Application,
-        virtual public ImageReceiver
+        virtual public ImageReceiverGeneric
     {
         public:
             int run(int argc, char* argv[]);
 
-            void receiveImageEmbedded(const Blob& image, const Ice::Current& ctx);
-            void receiveImageSharedMemory(const SharedMemorySegment& image, const Ice::Current& ctx);
+            void receiveImageEmbedded(const Blob& image, ImageType iType, const Ice::Current& ctx);
+            void receiveImageSharedMemory(const SharedMemorySegment& image, ImageType iType, const Ice::Current& ctx);
 
         protected:
             IceStorm::TopicManagerPrx topicManager;

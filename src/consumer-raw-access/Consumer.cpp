@@ -79,12 +79,12 @@ int Consumer::run(int argc, char* argv[])
     return 0;
 }
 
-void Consumer::receiveImageEmbedded(const Blob& image, const Ice::Current& ctx)
+void Consumer::receiveImageEmbedded(const Blob& image, ImageType iType, const Ice::Current& ctx)
 {
     std::cout << "Received Blob Image of size " << image.size() << " bytes." << std::endl;
 }
 
-void Consumer::receiveImageSharedMemory(const SharedMemorySegment& image, const Ice::Current& ctx)
+void Consumer::receiveImageSharedMemory(const SharedMemorySegment& image, ImageType iType, const Ice::Current& ctx)
 {
     std::cout << "Received Shared Memory Image of size " << image.size
         << " bytes. (key = " << image.key << ", flags = " << image.flags << ")"

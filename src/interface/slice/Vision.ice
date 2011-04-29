@@ -22,27 +22,27 @@ module vision
 
      interface ImageReceiverSharedMemory
      {
-         void receiveImageSharedMemory(SharedMemorySegment image);
+         void receiveImageSharedMemory(SharedMemorySegment image, ImageType iType);
      };
 
      interface ImageReceiverEmbedded
      {
-         void receiveImageEmbedded(Blob image);
+         void receiveImageEmbedded(Blob image, ImageType iType);
      };
 
-     interface ImageReceiver extends ImageReceiverSharedMemory, ImageReceiverEmbedded {
+     interface ImageReceiverGeneric extends ImageReceiverSharedMemory, ImageReceiverEmbedded {
      };
 
      interface ImageProvider
      {
-         void enableBroadcast(StorageType store, ImageType image);
-         void disableBroadcast(StorageType store, ImageType image);
+         void enableBroadcast(StorageType store, ImageType iType);
+         void disableBroadcast(StorageType store, ImageType iType);
 
-         void enablePolling(StorageType store, ImageType image);
-         void disablePolling(StorageType store, ImageType image);
+         void enablePolling(StorageType store, ImageType iType);
+         void disablePolling(StorageType store, ImageType iType);
 
-         Blob getImageBlob(ImageType image);
-         SharedMemorySegment getImageSharedMemory(ImageType image);
+         Blob getImageBlob(ImageType iType);
+         SharedMemorySegment getImageSharedMemory(ImageType iType);
 
          int getHardwareId();
      };

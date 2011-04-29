@@ -1,15 +1,15 @@
 
-#include "ConsumerSimple.h"
+#include "Consumer.h"
 
 #include <Ice/Ice.h>
 
 int main(int argc, char* argv[])
 {
-    vision::ConsumerSimple app;
+    vision::Consumer app;
 
     // need to create an ice pointer here to be able to use "this" in app
-    //Ice::ObjectPtr obj = &app;
-    //obj->__setNoDelete(true);
+    Ice::ObjectPtr obj = &app;
+    obj->__setNoDelete(true);
 
     return app.main(argc, argv);
 }

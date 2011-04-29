@@ -57,11 +57,11 @@ int Producer::run(int argc, char* argv[])
                 switch (it->first.first)
                 {
                     case Embedded:
-                        embeddedTopic->receiveImageEmbedded(Blob());
+                        embeddedTopic->receiveImageEmbedded(Blob(), it->first.second);
                     break;
 
                     case SharedMemory:
-                        sharedMemoryTopic->receiveImageSharedMemory(SharedMemorySegment());
+                        sharedMemoryTopic->receiveImageSharedMemory(SharedMemorySegment(), it->first.second);
                     break;
                 }
             }
