@@ -22,6 +22,7 @@ namespace vision
             typedef std::map<ImageType, ReceiverVector> BroadcastReceiverMap;
 
             void start(const std::string& endpoint, int argc, char* argv[]);
+            void stop();
 
             void enableBroadcast(ImageType imageType, ImageReceiver* receiver);
             void disableBroadcast(ImageType imageType, ImageReceiver* receiver);

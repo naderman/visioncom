@@ -56,8 +56,14 @@ void VisionCom::start(const std::string& endpoint, int argc, char* argv[])
     }
 }
 
-//    sharedMemoryTopicPrx->unsubscribe(thisProxy->ice_oneway());
-
+void VisionCom::stop()
+{
+    if (communicator)
+    {
+        communicator->destroy();
+        communicator = NULL;
+    }
+}
 
 void VisionCom::enableBroadcast(ImageType imageType, ImageReceiver* receiver)
 {
@@ -127,11 +133,6 @@ void VisionCom::disablePolling(ImageType imageType)
 
 Blob VisionCom::getImage(ImageType imageType)
 {
-    /*TODO if (pollingImageTypes.find(imageType) == broadcastImageTypes.end())
-    {
-        enablePolling(imageType);
-    }*/
-
     switch (storageType)
     {
         case Embedded:

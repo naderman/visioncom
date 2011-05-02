@@ -1,7 +1,7 @@
 #ifndef VISIONCOM_CONSUMERSIMPLE_H
 #define VISIONCOM_CONSUMERSIMPLE_H
 
-#include <VisionCom.h>
+#include <interface/VisionCom.h>
 
 namespace vision
 {

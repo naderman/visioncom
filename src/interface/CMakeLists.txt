@@ -77,7 +77,12 @@ endforeach()
 use_ice()
 
 #setup include paths
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/cpp)
+include_directories(${VISIONCOM_BASE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} "${VISIONCOM_BASE_DIR}/src" ${CMAKE_CURRENT_SOURCE_DIR}/cpp)
+
+file(GLOB LIB_FILES_EXTRA *.cpp)
+file(GLOB LIB_HEADER_FILES_EXTRA *.h)
+set(LIB_FILES ${LIB_FILES} ${LIB_FILES_EXTRA})
+set(LIB_HEADER_FILES ${LIB_HEADER_FILES} ${LIB_HEADER_FILES_EXTRA})
 
 # build library
 add_library(${LIB_NAME} SHARED ${LIB_FILES})
