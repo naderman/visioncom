@@ -33,7 +33,7 @@ module vision
      interface ImageReceiverGeneric extends ImageReceiverSharedMemory, ImageReceiverEmbedded {
      };
 
-     interface ImageProvider
+     interface ImageProviderGeneric
      {
          void enableBroadcast(StorageType store, ImageType iType);
          void disableBroadcast(StorageType store, ImageType iType);

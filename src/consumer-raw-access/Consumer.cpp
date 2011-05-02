@@ -9,7 +9,7 @@ int Consumer::run(int argc, char* argv[])
 {
     // retrieve the producer
     Ice::ObjectPrx base = communicator()->stringToProxy(PRODUCER);
-    ImageProviderPrx producer = ImageProviderPrx::checkedCast(base);
+    ImageProviderGenericPrx producer = ImageProviderGenericPrx::checkedCast(base);
 
     // start up Ice server
     Ice::ObjectAdapterPtr adapter = communicator()->createObjectAdapterWithEndpoints("ImageReceiver", CONSUMER_ENDPOINT);

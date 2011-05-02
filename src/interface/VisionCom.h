@@ -41,7 +41,7 @@ namespace vision
 
             IceStorm::TopicManagerPrx topicManager;
             IceStorm::TopicPrx topicPrx;
-            ImageProviderPrx producer;
+            ImageProviderGenericPrx producer;
 
             StorageType storageType;
             BroadcastReceiverMap broadcastCallbacks;

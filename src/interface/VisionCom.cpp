@@ -19,7 +19,7 @@ void VisionCom::start(const std::string& endpoint, int argc, char* argv[])
 
         // retrieve the producer
         Ice::ObjectPrx base = communicator->stringToProxy(PRODUCER);
-        producer = ImageProviderPrx::checkedCast(base);
+        producer = ImageProviderGenericPrx::checkedCast(base);
 
         int myHardwareId = 1234; // TODO: figure out hardware id
         storageType = (producer->getHardwareId() == myHardwareId) ? SharedMemory : Embedded;

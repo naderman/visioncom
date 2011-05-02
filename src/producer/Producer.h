@@ -11,7 +11,7 @@ namespace vision
 {
     class VisionCom_EXPORT Producer :
         virtual public Ice::Application,
-        virtual public ImageProvider
+        virtual public ImageProviderGeneric
     {
         public:
             typedef std::pair<StorageType, ImageType> ProvisionType;
