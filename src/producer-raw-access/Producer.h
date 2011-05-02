@@ -1,5 +1,5 @@
-#ifndef VISIONCOM_CONSUMER_H
-#define VISIONCOM_CONSUMER_H
+#ifndef VISIONCOM_PRODUCER_H
+#define VISIONCOM_PRODUCER_H
 
 #include <interface/cpp/Vision.h>
 

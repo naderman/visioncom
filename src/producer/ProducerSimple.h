@@ -1,45 +1,27 @@
-#ifndef VISIONCOM_CONSUMER_H
-#define VISIONCOM_CONSUMER_H
+#ifndef VISIONCOM_PRODUCERSIMPLE_H
+#define VISIONCOM_PRODUCERSIMPLE_H
 
-#include <interface/cpp/Vision.h>
-
-#include <map>
-#include <Ice/Ice.h>
-#include <IceStorm/IceStorm.h>
+#include <interface/VisionComSender.h>
 
 namespace vision
 {
-    class VisionCom_EXPORT Producer :
-        virtual public Ice::Application,
-        virtual public ImageProviderGeneric
+    class VisionCom_EXPORT ProducerSimple :
+        virtual public ImageProvider
     {
         public:
-            typedef std::pair<StorageType, ImageType> ProvisionType;
-            typedef std::map<ProvisionType, int> EnabledMap;
+            typedef std::map<ImageType, Blob*> ImageMap;
 
-            int run(int argc, char* argv[]);
+            int main(int argc, char* argv[]);
 
-            void enableBroadcast(StorageType store, ImageType image, const Ice::Current& ctx);
-            void disableBroadcast(StorageType store, ImageType image, const Ice::Current& ctx);
-
-            void enablePolling(StorageType store, ImageType image, const Ice::Current& ctx);
-            void disablePolling(StorageType store, ImageType image, const Ice::Current& ctx);
-
-            Blob getImageBlob(ImageType image, const Ice::Current& ctx);
-            SharedMemorySegment getImageSharedMemory(ImageType image, const Ice::Current& ctx);
-
-            int getHardwareId(const Ice::Current& ctx);
+            Blob getImage(ImageType imageType);
 
         protected:
-            EnabledMap broadcastEnabled;
-            EnabledMap pollingEnabled;
+            VisionComSender sender;
 
-            IceUtil::Mutex broadcastMutex;
-            IceUtil::Mutex pollingMutex;
+            Blob lastRawImage;
+            ImageMap lastImages;
 
-            IceStorm::TopicManagerPrx topicManager;
-            ImageReceiverEmbeddedPrx embeddedTopic;
-            ImageReceiverSharedMemoryPrx sharedMemoryTopic;
+            IceUtil::Mutex bufferMutex;
     };
 }
 

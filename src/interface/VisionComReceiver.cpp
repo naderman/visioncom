@@ -6,12 +6,16 @@
 
 using namespace vision;
 
-void VisionComReceiver::start(const std::string& endpoint, int argc, char* argv[])
+int VisionComReceiver::start(const std::string& endpoint, int argc, char* argv[])
 {
-    int status;
+    thisPtr = this;
+    thisPtr->__setNoDelete(true);
+
+    int status = 0;
 
     try
     {
+
         appName = argv[0];
 
         // create a communicator
@@ -27,33 +31,35 @@ void VisionComReceiver::start(const std::string& endpoint, int argc, char* argv[
         // start up Ice server
         Ice::ObjectAdapterPtr adapter = communicator->createObjectAdapterWithEndpoints("ImageReceiver", endpoint);
         Ice::Identity id = communicator->stringToIdentity("ImageReceiver");
-        adapter->add(this, id);
+        adapter->add(thisPtr, id);
         adapter->activate();
         thisProxy = adapter->createProxy(id);
 
         // get topic manager
         topicManager = IceStorm::TopicManagerPrx::checkedCast(communicator->stringToProxy(TOPIC_MANAGER));
     }
-    catch(const std::exception& ex)
+    catch (const std::exception& ex)
     {
         std::cerr << appName << ": " << ex.what() << std::endl;
         status = EXIT_FAILURE;
     }
-    catch(const std::string& msg)
+    catch (const std::string& msg)
     {
         std::cerr << appName << ": " << msg << std::endl;
         status = EXIT_FAILURE;
     }
-    catch(const char* msg)
+    catch (const char* msg)
     {
         std::cerr << appName << ": " << msg << std::endl;
         status = EXIT_FAILURE;
     }
-    catch(...)
+    catch (...)
     {
         std::cerr << appName << ": unknown exception" << std::endl;
         status = EXIT_FAILURE;
     }
+
+    return status;
 }
 
 void VisionComReceiver::stop()
@@ -61,7 +67,6 @@ void VisionComReceiver::stop()
     if (communicator)
     {
         communicator->destroy();
-        communicator = NULL;
     }
 }
 

@@ -21,7 +21,7 @@ namespace vision
             typedef std::vector<ImageReceiver*> ReceiverVector;
             typedef std::map<ImageType, ReceiverVector> BroadcastReceiverMap;
 
-            void start(const std::string& endpoint, int argc, char* argv[]);
+            int start(const std::string& endpoint, int argc, char* argv[]);
             void stop();
 
             void enableBroadcast(ImageType imageType, ImageReceiver* receiver);
@@ -37,6 +37,7 @@ namespace vision
 
         protected:
             std::string appName;
+            Ice::ObjectPtr thisPtr;
             Ice::ObjectPrx thisProxy;
 
             IceStorm::TopicManagerPrx topicManager;

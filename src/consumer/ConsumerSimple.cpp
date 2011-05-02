@@ -7,16 +7,23 @@ using namespace vision;
 
 int ConsumerSimple::main(int argc, char* argv[])
 {
-    vision.start(CONSUMER_ENDPOINT, argc, argv);
+    int status;
 
-    vision.enableBroadcast(Default, this);
+    if ((status = receiver.start(CONSUMER_ENDPOINT, argc, argv)))
+    {
+        return status;
+    }
+
+    receiver.enableBroadcast(Default, this);
     IceUtil::ThreadControl::sleep(IceUtil::Time::seconds(1));
-    vision.disableBroadcast(Default, this);
+    receiver.disableBroadcast(Default, this);
 
-    vision.enablePolling(Default);
-    Blob image = vision.getImage(Default);
+    receiver.enablePolling(Default);
+    Blob image = receiver.getImage(Default);
     std::cout << "Requested Image of size " << image.size() << " bytes." << std::endl;
-    vision.disablePolling(Default);
+    receiver.disablePolling(Default);
+
+    receiver.stop();
 
     return 0;
 }

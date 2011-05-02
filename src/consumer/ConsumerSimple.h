@@ -14,7 +14,7 @@ namespace vision
             void receiveImage(const Blob& image, ImageType imageType);
 
         protected:
-            VisionComReceiver vision;
+            VisionComReceiver receiver;
     };
 }
 

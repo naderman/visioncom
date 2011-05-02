@@ -1,15 +1,9 @@
 
-#include "Producer.h"
-
-#include <Ice/Ice.h>
+#include "ProducerSimple.h"
 
 int main(int argc, char* argv[])
 {
-    vision::Producer app;
+    vision::ProducerSimple* app = new vision::ProducerSimple;
 
-    // need to create an ice pointer here to be able to use "this" in app
-    Ice::ObjectPtr obj = &app;
-    obj->__setNoDelete(true);
-
-    return app.main(argc, argv);
+    return app->main(argc, argv);
 }
