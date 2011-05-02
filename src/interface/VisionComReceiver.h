@@ -1,5 +1,5 @@
-#ifndef VISIONCOM_VISIONCOM_H
-#define VISIONCOM_VISIONCOM_H
+#ifndef VISIONCOM_VISIONCOMRECEIVER_H
+#define VISIONCOM_VISIONCOMRECEIVER_H
 
 #include <interface/cpp/Vision.h>
 
@@ -14,7 +14,7 @@ namespace vision
             virtual void receiveImage(const Blob&, ImageType) = 0;
     };
 
-    class VisionCom_EXPORT VisionCom :
+    class VisionCom_EXPORT VisionComReceiver :
         virtual public ImageReceiverGeneric
     {
         public:

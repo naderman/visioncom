@@ -1,7 +1,7 @@
 #ifndef VISIONCOM_CONSUMERSIMPLE_H
 #define VISIONCOM_CONSUMERSIMPLE_H
 
-#include <interface/VisionCom.h>
+#include <interface/VisionComReceiver.h>
 
 namespace vision
 {
@@ -14,7 +14,7 @@ namespace vision
             void receiveImage(const Blob& image, ImageType imageType);
 
         protected:
-            VisionCom visionCom;
+            VisionComReceiver vision;
     };
 }
 

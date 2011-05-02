@@ -1,4 +1,4 @@
-#include "VisionCom.h"
+#include "VisionComReceiver.h"
 #include "../NetworkConfig.h"
 
 #include <iostream>
@@ -6,7 +6,7 @@
 
 using namespace vision;
 
-void VisionCom::start(const std::string& endpoint, int argc, char* argv[])
+void VisionComReceiver::start(const std::string& endpoint, int argc, char* argv[])
 {
     int status;
 
@@ -56,7 +56,7 @@ void VisionCom::start(const std::string& endpoint, int argc, char* argv[])
     }
 }
 
-void VisionCom::stop()
+void VisionComReceiver::stop()
 {
     if (communicator)
     {
@@ -65,7 +65,7 @@ void VisionCom::stop()
     }
 }
 
-void VisionCom::enableBroadcast(ImageType imageType, ImageReceiver* receiver)
+void VisionComReceiver::enableBroadcast(ImageType imageType, ImageReceiver* receiver)
 {
     std::string topicName = (storageType == Embedded) ? "ImageReceiverEmbedded" : "ImageReceiverSharedMemory";
     try
@@ -96,7 +96,7 @@ void VisionCom::enableBroadcast(ImageType imageType, ImageReceiver* receiver)
     producer->enableBroadcast(storageType, imageType);
 }
 
-void VisionCom::disableBroadcast(ImageType imageType, ImageReceiver* receiver)
+void VisionComReceiver::disableBroadcast(ImageType imageType, ImageReceiver* receiver)
 {
     BroadcastReceiverMap::iterator it = broadcastCallbacks.find(imageType);
     if (it != broadcastCallbacks.end())
@@ -121,17 +121,17 @@ void VisionCom::disableBroadcast(ImageType imageType, ImageReceiver* receiver)
     producer->disableBroadcast(storageType, imageType);
 }
 
-void VisionCom::enablePolling(ImageType imageType)
+void VisionComReceiver::enablePolling(ImageType imageType)
 {
     producer->enablePolling(storageType, imageType);
 }
 
-void VisionCom::disablePolling(ImageType imageType)
+void VisionComReceiver::disablePolling(ImageType imageType)
 {
     producer->disablePolling(storageType, imageType);
 }
 
-Blob VisionCom::getImage(ImageType imageType)
+Blob VisionComReceiver::getImage(ImageType imageType)
 {
     switch (storageType)
     {
@@ -148,7 +148,7 @@ Blob VisionCom::getImage(ImageType imageType)
     }
 }
 
-void VisionCom::receiveImageEmbedded(const Blob& image, ImageType iType, const Ice::Current& ctx)
+void VisionComReceiver::receiveImageEmbedded(const Blob& image, ImageType iType, const Ice::Current& ctx)
 {
     BroadcastReceiverMap::iterator it = broadcastCallbacks.find(iType);
     if (it != broadcastCallbacks.end())
@@ -161,7 +161,7 @@ void VisionCom::receiveImageEmbedded(const Blob& image, ImageType iType, const I
     }
 }
 
-void VisionCom::receiveImageSharedMemory(const SharedMemorySegment& segment, ImageType iType, const Ice::Current& ctx)
+void VisionComReceiver::receiveImageSharedMemory(const SharedMemorySegment& segment, ImageType iType, const Ice::Current& ctx)
 {
     Blob image;
     // TODO: retrieve image from shared memory
